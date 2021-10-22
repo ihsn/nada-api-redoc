@@ -805,9 +805,10 @@
                   "type": "string"
                 }
               }
-            }
+            },
+            "additionalProperties": false
           },
-          "required": [
+          "required": [ 
             "name"
           ]
         },
@@ -1005,6 +1006,10 @@
             "properties": {
               "tag": {
                 "title": "Tag",
+                "type": "string"
+              },
+              "tag_group": {
+                "title": "Tag group",
                 "type": "string"
               }
             }
