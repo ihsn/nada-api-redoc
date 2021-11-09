@@ -870,7 +870,8 @@
           },
           "required":[
             "nation"
-          ]
+          ],
+          "additionalProperties":false
         },
         "study_development":{
           "title":"Study Development",
@@ -945,12 +946,6 @@
                   "title":"Characteristics of Source Noted",
                   "description":"Assessment of characteristics and quality of source material. May not be relevant to survey data.",
                   "_ddi_xpath":"stdyDscr/studyDevelopment/developmentActivity/resource/srcChar"
-                },
-                "source_doc":{
-                  "type":"string",
-                  "title":"Source documentation",
-                  "description":"Documentation and Access to Sources",
-                  "_ddi_xpath":"stdyDscr/studyDevelopment/developmentActivity/resource/srcDocu"
                 }
               }
             },
@@ -960,7 +955,8 @@
               "type":"string",
               "_ddi_xpath":"stdyDscr/studyDevelopment/developmentActivity/outcome"
             }
-          }
+          },
+          "additionalProperties":false
         },
         "method":{
           "type":"object",
@@ -1343,7 +1339,8 @@
                 }
               }
             }
-          }
+          },
+          "additionalProperties":false
         },
         "data_access":{
           "type":"object",
@@ -1544,7 +1541,8 @@
               "type":"string",
               "_ddi_xpath":"stdyDscr/dataAccs/setAvail/notes"
             }
-          }
+          },
+          "additionalProperties":false
         }
       },
       "required":[
