@@ -727,12 +727,12 @@ paths:
             name: "body"
             required: true
             schema:
-              $ref: 'script-schema.json'
+              $ref: 'script-schema.json?v2'
         responses:
           '200':
             description: successful operation
             schema:
-              $ref: 'script-schema.json'
+              $ref: 'script-schema.json?v2'
         security:
           - ApiKeyAuth: []  
   /datasets/create/geospatial:
@@ -775,12 +775,12 @@ paths:
           name: "body"
           required: true
           schema:
-            $ref: 'timeseries-db-schema.json'
+            $ref: 'timeseries-db-schema.json?v2'
       responses:
         '200':
           description: successful operation
           schema:
-            $ref: 'timeseries-db-schema.json'
+            $ref: 'timeseries-db-schema.json?v2'
       security:
         - ApiKeyAuth: [] 
   /datasets/create/timeseries:
@@ -799,12 +799,12 @@ paths:
             name: "body"
             required: true
             schema:
-              $ref: 'timeseries-schema.json'
+              $ref: 'timeseries-schema.json?v2'
         responses:
           '200':
             description: successful operation
             schema:
-              $ref: 'timeseries-schema.json'
+              $ref: 'timeseries-schema.json?v2'
         security:
           - ApiKeyAuth: []         
   /datasets/create/image:
