@@ -44,7 +44,7 @@
 			],
 			"default": "no"
 		},
-		"metadata_creation": {
+		"metadata_information": {
 			"type": "object",
 			"title": "Metadata creation",
 			"description": "Information on who generated the documentation",
@@ -202,6 +202,10 @@
 					"items": {
 						"type": "object",
 						"properties": {
+							"name": {
+								"title": "Name",
+								"type": "string"
+							},
 							"label": {
 								"title": "Label",
 								"type": "string"
@@ -293,6 +297,10 @@
 				"methodology": {
 					"type": "string",
 					"title": "Methodology"
+				},
+				"derivation": {
+					"type": "string",
+					"title": "Derivation"
 				},
 				"imputation": {
 					"type": "string",
@@ -399,8 +407,16 @@
 					"items": {
 						"type": "object",
 						"properties": {
+							"id": {
+								"title": "Unique Identifier",
+								"type": "string"
+							},
 							"name": {
 								"title": "Discipline title or name",
+								"type": "string"
+							},
+							"parent_id": {
+								"title": "Parent Identifier",
 								"type": "string"
 							},
 							"vocabulary": {
@@ -436,6 +452,10 @@
 							"end": {
 								"type": "string",
 								"title": "End"
+							},
+							"notes": {
+								"type": "string",
+								"title": "Notes"
 							}
 						}
 					}
@@ -581,16 +601,19 @@
 					}
 				},
 				"api_documentation": {
-					"type": "object",
+					"type": "array",
 					"description": "API Documentation",
-					"properties": {
-						"description": {
-							"title": "Description",
-							"type": "string"
-						},
-						"uri": {
-							"title": "URI",
-							"type": "string"
+					"items": {
+						"type": "object",
+						"properties": {
+							"description": {
+								"title": "Description",
+								"type": "string"
+							},
+							"uri": {
+								"title": "URI",
+								"type": "string"
+							}
 						}
 					}
 				},
@@ -715,6 +738,26 @@
 						]
 					}
 				},
+				"errata": {
+					"type": "array",
+					"title": "Errata",
+					"description": "List of corrected errors in data or metadata",
+					"items": {
+					  "type": "object",
+					  "properties": {
+						"date": {
+						  "title": "Date of erratum",
+						  "description": "Date when the erratum was reported or published",
+						  "type": "string"
+						},
+						"description": {
+						  "title": "Description of the erratum",
+						  "description": "A description of the erratum, with information on which data or metadata were impacted",
+						  "type": "string"
+						}
+					  }
+					}
+				  },
 				"notes": {
 					"title": "Notes",
 					"description": "Notes",
@@ -854,142 +897,6 @@
 						]
 					}
 				},
-				"lda_topics": {
-					"type": "array",
-					"title": "LDA topics",
-					"description": "LDA topics",
-					"items": {
-						"type": "object",
-						"properties": {
-							"model_info": {
-								"type": "array",
-								"title": "Model information",
-								"items": {
-									"type": "object",
-									"properties": {
-										"source": {
-											"title": "Source",
-											"type": "string"
-										},
-										"author": {
-											"title": "Author",
-											"type": "string"
-										},
-										"version": {
-											"title": "Version",
-											"type": "string"
-										},
-										"model_id": {
-											"title": "Model Identifier",
-											"type": "string"
-										},
-										"nb_topics": {
-											"title": "Number of topics",
-											"type": "number"
-										},
-										"description": {
-											"title": "Description",
-											"type": "string"
-										},
-										"corpus": {
-											"title": "Corpus name",
-											"type": "string"
-										},
-										"uri": {
-											"title": "URI",
-											"type": "string"
-										}
-									}
-								},
-								"required": [
-									"model_id"
-								]
-							},
-							"topic_description": {
-								"type": "array",
-								"title": "Topic information",
-								"items": {
-									"type": "object",
-									"properties": {
-										"topic_id": {
-											"title": "Topic identifier",
-											"type": [
-												"integer",
-												"string"
-											]
-										},
-										"topic_score": {
-											"title": "Topic score",
-											"type": [
-												"number",
-												"string"
-											]
-										},
-										"topic_label": {
-											"title": "Topic label",
-											"type": "string"
-										},
-										"topic_words": {
-											"type": "array",
-											"title": "Topic words",
-											"description": "Words",
-											"items": {
-												"type": "object",
-												"properties": {
-													"word": {
-														"title": "Word",
-														"type": "string"
-													},
-													"word_weight": {
-														"title": "Word weight",
-														"type": "number"
-													}
-												}
-											},
-											"required": [
-												"word"
-											]
-										}
-									}
-								},
-								"required": [
-									"topic_id"
-								]
-							}
-						},
-						"additionalProperties": false
-					}
-				},
-				"embeddings": {
-					"type": "array",
-					"title": "Word embeddings",
-					"description": "Word embeddings",
-					"items": {
-						"type": "object",
-						"properties": {
-							"id": {
-								"title": "Vector Model ID",
-								"type": "string"
-							},
-							"description": {
-								"title": "Vector Model Description",
-								"type": "string"
-							},
-							"date": {
-								"title": "Date (YYYY-MM-DD)",
-								"type": "string"
-							},
-							"vector": {
-								"title": "Vector",
-								"type": "object"
-							}
-						}
-					},
-					"required": [
-						"id",
-						"vector"
-					]
-				},
 				"series_groups": {
 					"type": "array",
 					"title": "Series groups",
@@ -1059,131 +966,140 @@
 			"title": "LDA topics",
 			"description": "LDA topics",
 			"items": {
-			  "type": "object",
-			  "properties": {
-				"model_info": {
-				  "type": "array",
-				  "title": "Model information",
-				  "items": {
-					"type": "object",
-					"properties": {
-					  "source": {
-						"title": "Source",
-						"type": "string"
-					  },
-					  "author": {
-						"title": "Author",
-						"type": "string"
-					  },
-					  "version": {
-						"title": "Version",
-						"type": "string"
-					  },
-					  "model_id": {
-						"title": "Model Identifier",
-						"type": "string"
-					  },
-					  "nb_topics": {
-						"title": "Number of topics",
-						"type": "number"
-					  },
-					  "description": {
-						"title": "Description",
-						"type": "string"
-					  },
-					  "corpus": {
-						"title": "Corpus name",
-						"type": "string"
-					  },
-					  "uri": {
-						"title": "URI",
-						"type": "string"
-					  }
-					}
-				  },
-				  "required": [
-					"model_id"
-				  ]
-				},              
-				"topic_description": {
-				  "type": "array",
-				  "title": "Topic information",
-				  "items": {
-					"type": "object",
-					"properties": {
-					  "topic_id": {
-						"title": "Topic identifier",
-						"type": ["integer", "string"]
-					  },
-					  "topic_score": {
-						"title": "Topic score",
-						"type": ["number", "string"]
-					  },
-					  "topic_label": {
-						"title": "Topic label",
-						"type": "string"
-					  },
-					  "topic_words": {
+				"type": "object",
+				"properties": {
+					"model_info": {
 						"type": "array",
-						"title": "Topic words",
-						"description": "Words",
+						"title": "Model information",
 						"items": {
-						  "type": "object",
-						  "properties": {
-							"word": {
-							  "title": "Word",
-							  "type": "string"
-							},
-							"word_weight": {
-							  "title": "Word weight",
-							  "type": "number"
+							"type": "object",
+							"properties": {
+								"source": {
+									"title": "Source",
+									"type": "string"
+								},
+								"author": {
+									"title": "Author",
+									"type": "string"
+								},
+								"version": {
+									"title": "Version",
+									"type": "string"
+								},
+								"model_id": {
+									"title": "Model Identifier",
+									"type": "string"
+								},
+								"nb_topics": {
+									"title": "Number of topics",
+									"type": "number"
+								},
+								"description": {
+									"title": "Description",
+									"type": "string"
+								},
+								"corpus": {
+									"title": "Corpus name",
+									"type": "string"
+								},
+								"uri": {
+									"title": "URI",
+									"type": "string"
+								}
 							}
-						  }
 						},
 						"required": [
-						  "word"
+							"model_id"
 						]
-					  }
+					},
+					"topic_description": {
+						"type": "array",
+						"title": "Topic information",
+						"items": {
+							"type": "object",
+							"properties": {
+								"topic_id": {
+									"title": "Topic identifier",
+									"type": [
+										"integer",
+										"string"
+									]
+								},
+								"topic_score": {
+									"title": "Topic score",
+									"type": [
+										"number",
+										"string"
+									]
+								},
+								"topic_label": {
+									"title": "Topic label",
+									"type": "string"
+								},
+								"topic_words": {
+									"type": "array",
+									"title": "Topic words",
+									"description": "Words",
+									"items": {
+										"type": "object",
+										"properties": {
+											"word": {
+												"title": "Word",
+												"type": "string"
+											},
+											"word_weight": {
+												"title": "Word weight",
+												"type": "number"
+											}
+										}
+									},
+									"required": [
+										"word"
+									]
+								}
+							}
+						},
+						"required": [
+							"topic_id"
+						]
 					}
-				  },
-				  "required": [
-					"topic_id"
-				  ]
-				}
-				
-			  },
-			  "additionalProperties": false
+				},
+				"additionalProperties": false
 			}
-		  },
-		  "embeddings":{
+		},
+		"embeddings": {
 			"type": "array",
 			"title": "Word embeddings",
 			"description": "Word embeddings",
 			"items": {
-			  "type": "object",
-			  "properties": {
-				"id": {
-				  "title": "Vector Model ID",
-				  "type": "string"
+				"type": "object",
+				"properties": {
+					"id": {
+						"title": "Vector Model ID",
+						"type": "string"
+					},
+					"description": {
+						"title": "Vector Model Description",
+						"type": "string"
+					},
+					"date": {
+						"title": "Date (YYYY-MM-DD)",
+						"type": "string"
+					},
+					"vector": {
+						"title": "Vector",
+						"type": [
+							"object",
+							"array"
+						]
+					}
 				},
-				"description": {
-				  "title": "Vector Model Description",
-				  "type": "string"
-				},
-				"date": {
-				  "title": "Date (YYYY-MM-DD)",
-				  "type": "string"
-				},
-				"vector": {
-				  "title": "Vector",
-				  "type": "object"
-				}
-			  },
-			  "required": [
-				"id","vector"
-			  ]
+				"required": [
+					"id",
+					"vector"
+				]
 			}
-		  },
+		},
 		"additional": {
 			"type": "object",
 			"title": "Additional custom metadata",

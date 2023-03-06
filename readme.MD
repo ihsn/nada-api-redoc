@@ -1,0 +1,5 @@
+# NADA API documentation
+
+View documentation at:
+
+<a href="https://ihsn.github.io/nada-api-redoc/catalog-admin/">https://ihsn.github.io/nada-api-redoc/catalog-admin/</a>
